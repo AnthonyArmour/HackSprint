@@ -1,4 +1,5 @@
 from models.obj_classes import tech_obj, person_obj, question
+import os
 
 
 """person_obj images"""
@@ -8,25 +9,25 @@ libby_images = []
 stan_images = []
 kristen_images = []
 
-derek_images.append("../assets/images/derek_1.PNG")
-derek_images.append("../assets/images/derek_2.PNG")
-derek_images.append("../assets/images/derek_3.PNG")
+derek_images.append(os.path.join("Assets/images/person_objs", "derek_1.PNG"))
+derek_images.append(os.path.join("Assets/images/person_objs", "derek_2.PNG"))
+derek_images.append(os.path.join("Assets/images/person_objs", "derek_3.PNG"))
 
-tori_images.append("../assets/images/tori_1.PNG")
-tori_images.append("../assets/images/tori_2.PNG")
-tori_images.append("../assets/images/tori_3.PNG")
+tori_images.append(os.path.join("Assets/images/person_objs", "tori_1.PNG"))
+tori_images.append(os.path.join("Assets/images/person_objs", "tori_2.PNG"))
+tori_images.append(os.path.join("Assets/images/person_objs", "tori_3.PNG"))
 
-libby_images.append("../assets/images/libby_1.PNG")
-libby_images.append("../assets/images/libby_2.PNG")
-libby_images.append("../assets/images/libby_3.PNG")
+libby_images.append(os.path.join("Assets/images/person_objs", "libby_1.PNG"))
+libby_images.append(os.path.join("Assets/images/person_objs", "libby_2.PNG"))
+libby_images.append(os.path.join("Assets/images/person_objs", "libby_3.PNG"))
 
-stan_images.append("../assets/images/stan_1.PNG")
-stan_images.append("../assets/images/stan_2.PNG")
-stan_images.append("../assets/images/stan_3.PNG")
+stan_images.append(os.path.join("Assets/images/person_objs", "stan_1.PNG"))
+stan_images.append(os.path.join("Assets/images/person_objs", "stan_2.PNG"))
+stan_images.append(os.path.join("Assets/images/person_objs", "stan_3.PNG"))
 
-kristen_images.append("../assets/images/kristen_1.PNG")
-kristen_images.append("../assets/images/kristen_2.PNG")
-kristen_images.append("../assets/images/kristen_3.PNG")
+kristen_images.append(os.path.join("Assets/images/person_objs", "kristen_1.PNG"))
+kristen_images.append(os.path.join("Assets/images/person_objs", "kristen_2.PNG"))
+kristen_images.append(os.path.join("Assets/images/person_objs", "kristen_3.PNG"))
 
 
 """tech_obj images"""
@@ -36,35 +37,35 @@ vs_code_images = []
 vbox_images = []
 github_images = []
 
-google_images.append("../assets/images/google_1.PNG")
-google_images.append("../assets/images/google_2.PNG")
-google_images.append("../assets/images/google_3.PNG")
+google_images.append(os.path.join("Assets/images/tech_objs", "google_1.PNG"))
+google_images.append(os.path.join("Assets/images/tech_objs", "google_2.PNG"))
+google_images.append(os.path.join("Assets/images/tech_objs", "google_3.PNG"))
 
-intranet_images.append("../assets/images/intranet_1.PNG")
-intranet_images.append("../assets/images/intranet_2.PNG")
-intranet_images.append("../assets/images/intranet_3.PNG")
+intranet_images.append(os.path.join("Assets/images/tech_objs", "intranet_1.PNG"))
+intranet_images.append(os.path.join("Assets/images/tech_objs", "intranet_2.PNG"))
+intranet_images.append(os.path.join("Assets/images/tech_objs", "intranet_3.PNG"))
 
-vs_code_images.append("../assets/images/vscode_1.PNG")
-vs_code_images.append("../assets/images/vscode_2.PNG")
-vs_code_images.append("../assets/images/vscode_3.PNG")
+vs_code_images.append(os.path.join("Assets/images/tech_objs", "vscode_1.PNG"))
+vs_code_images.append(os.path.join("Assets/images/vscode_2.PNG"))
+vs_code_images.append(os.path.join("Assets/images/vscode_3.PNG"))
 
-vbox_images.append("../assets/images/virtualbox_1.PNG")
-vbox_images.append("../assets/images/virtualbox_2.PNG")
-vbox_images.append("../assets/images/virtualbox_3.PNG")
+vbox_images.append(os.path.join("Assets/images/tech_objs", "virtualbox_1.PNG"))
+vbox_images.append(os.path.join("Assets/images/tech_objs", "virtualbox_2.PNG"))
+vbox_images.append(os.path.join("Assets/images/tech_objs", "virtualbox_3.PNG"))
 
-github_images.append("../assets/images/github_1.PNG")
-github_images.append("../assets/images/github_2.PNG")
-github_images.append("../assets/images/github_3.PNG")
+github_images.append(os.path.join("Assets/images/tech_objs", "github_1.PNG"))
+github_images.append(os.path.join("Assets/images/tech_objs", "github_2.PNG"))
+github_images.append(os.path.join("Assets/images/tech_objs", "github_3.PNG"))
 
 
 """question images"""
 
-derekQ_img = ["../assets/images/text_derek.PNG"]
-toriQ_img = ["../assets/images/text_tori.PNG"]
-# libbyQ_img = ["../assets/images/"]
-googleQ_img = ["../assets/images/text_google.PNG"]
-intranetQ_img = ["../assets/images/text_intranet.PNG"]
-# githubQ_img = "../assets/images/"
+derekQ_img = [os.path.join("Assets/images/text_derek.PNG"]
+toriQ_img = [os.path.join("Assets/images/text_tori.PNG"]
+# libbyQ_img = [os.path.join("Assets/images/"]
+googleQ_img = [os.path.join("Assets/images/text_google.PNG"]
+intranetQ_img = [os.path.join("Assets/images/text_intranet.PNG"]
+# githubQ_img = os.path.join("Assets/images/"
 
 
 """init persons"""
