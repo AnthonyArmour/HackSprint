@@ -1,4 +1,4 @@
-from models import tech_obj, person_obj, question
+from models.obj_classes import tech_obj, person_obj, question
 
 
 """person_obj images"""
@@ -28,18 +28,12 @@ kristen_images.append("../assets/images/kristen_1.PNG")
 kristen_images.append("../assets/images/kristen_2.PNG")
 kristen_images.append("../assets/images/kristen_3.PNG")
 
-# derek_img = "../assets/images/"
-# tori_img = "../assets/images/"
-# libby_img = "../assets/images/"
-# stan_img = "../assets/images/"
-# guillaume_img = "../assets/images/"
-
 
 """tech_obj images"""
 google_images = []
 intranet_images = []
 vs_code_images = []
-vagrant_images = []
+vbox_images = []
 github_images = []
 
 google_images.append("../assets/images/google_1.PNG")
@@ -54,30 +48,22 @@ vs_code_images.append("../assets/images/vscode_1.PNG")
 vs_code_images.append("../assets/images/vscode_2.PNG")
 vs_code_images.append("../assets/images/vscode_3.PNG")
 
-vagrant_images.append("../assets/images/")
-vagrant_images.append("../assets/images/")
-vagrant_images.append("../assets/images/")
+vbox_images.append("../assets/images/virtualbox_1.PNG")
+vbox_images.append("../assets/images/virtualbox_2.PNG")
+vbox_images.append("../assets/images/virtualbox_3.PNG")
 
-github_images.append("../assets/images/")
-github_images.append("../assets/images/")
-github_images.append("../assets/images/")
-
-
-
-# google_img = "../assets/images/"
-# intranet_img = "../assets/images/"
-# vs_code_img = "../assets/images/"
-# vagrant_img = "../assets/images/"
-# github_img = "../assets/images/"
+github_images.append("../assets/images/github_1.PNG")
+github_images.append("../assets/images/github_2.PNG")
+github_images.append("../assets/images/github_3.PNG")
 
 
 """question images"""
 
-derekQ_img = ["../assets/images/"]
-toriQ_img = ["../assets/images/"]
-libbyQ_img = ["../assets/images/"]
-googleQ_img = ["../assets/images/"]
-intranetQ_img = ["../assets/images/"]
+derekQ_img = ["../assets/images/text_derek.PNG"]
+toriQ_img = ["../assets/images/text_tori.PNG"]
+# libbyQ_img = ["../assets/images/"]
+googleQ_img = ["../assets/images/text_google.PNG"]
+intranetQ_img = ["../assets/images/text_intranet.PNG"]
 # githubQ_img = "../assets/images/"
 
 
@@ -102,7 +88,7 @@ tech_obj_list = []
 tech_obj_list.append(tech_obj(google_images, (200, 600), "Google"))
 tech_obj_list.append(tech_obj(intranet_images, (600, 600), "Intranet"))
 tech_obj_list.append(tech_obj(vs_code_images, (900, 600), "VS Code"))
-tech_obj_list.append(tech_obj(vagrant_images, (600, 600), "Vagrant"))
+tech_obj_list.append(tech_obj(vbox_images, (600, 600), "vbox"))
 tech_obj_list.append(tech_obj(github_images, (900, 600), "Github"))
 
 
@@ -110,10 +96,8 @@ tech_obj_list.append(tech_obj(github_images, (900, 600), "Github"))
 
 questions_list = []
 
-questions_list.append(question(derekQ_img, (150, 100), persons_list[0].id))
-questions_list.append(question(toriQ_img, (150, 100), persons_list[1].id))
-questions_list.append(question(googleQ_img, (150, 100), tech_obj_list[0].id))
-questions_list.append(question(intranetQ_img, (150, 100), tech_obj_list[1].id))
-# questions_list.append(question(derekQ_img, (150, 100), persons_list[0].id))
-
-
+questions_list.append(question(derekQ_img, (150, 100), persons_list[0].name))
+questions_list.append(question(toriQ_img, (150, 100), persons_list[1].name))
+questions_list.append(question(googleQ_img, (150, 100), tech_obj_list[0].name))
+questions_list.append(question(intranetQ_img, (150, 100), tech_obj_list[1].name))
+# questions_list.append(question(derekQ_img, (150, 100), persons_list[0].name))
