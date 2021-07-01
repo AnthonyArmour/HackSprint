@@ -1,0 +1,1 @@
+# Assets folder holds sounds and images

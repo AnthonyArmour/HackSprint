@@ -1,0 +1,1 @@
+# Folder to hold all images for "Lost Holbies" pygame
