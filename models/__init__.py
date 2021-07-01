@@ -46,8 +46,8 @@ intranet_images.append(os.path.join("Assets/images/tech_objs", "intranet_2.PNG")
 intranet_images.append(os.path.join("Assets/images/tech_objs", "intranet_3.PNG"))
 
 vs_code_images.append(os.path.join("Assets/images/tech_objs", "vscode_1.PNG"))
-vs_code_images.append(os.path.join("Assets/images/vscode_2.PNG"))
-vs_code_images.append(os.path.join("Assets/images/vscode_3.PNG"))
+vs_code_images.append(os.path.join("Assets/images/tech_objs", "vscode_2.PNG"))
+vs_code_images.append(os.path.join("Assets/images/tech_objs", "vscode_3.PNG"))
 
 vbox_images.append(os.path.join("Assets/images/tech_objs", "virtualbox_1.PNG"))
 vbox_images.append(os.path.join("Assets/images/tech_objs", "virtualbox_2.PNG"))
@@ -60,11 +60,11 @@ github_images.append(os.path.join("Assets/images/tech_objs", "github_3.PNG"))
 
 """question images"""
 
-derekQ_img = [os.path.join("Assets/images/text_derek.PNG"]
-toriQ_img = [os.path.join("Assets/images/text_tori.PNG"]
+derekQ_img = os.path.join("Assets/images/textbox_objs", "text_derek.PNG")
+toriQ_img = os.path.join("Assets/images/textbox_objs", "text_tori.PNG")
 # libbyQ_img = [os.path.join("Assets/images/"]
-googleQ_img = [os.path.join("Assets/images/text_google.PNG"]
-intranetQ_img = [os.path.join("Assets/images/text_intranet.PNG"]
+googleQ_img = os.path.join("Assets/images/textbox_objs", "text_google.PNG")
+intranetQ_img = os.path.join("Assets/images/textbox_objs", "text_intranet.PNG")
 # githubQ_img = os.path.join("Assets/images/"
 
 

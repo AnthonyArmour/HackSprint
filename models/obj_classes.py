@@ -29,6 +29,7 @@ class question():
     """question class"""
 
     def __init__(self, image, pos, obj_name):
-        self.image = pygame.transform.scale(pygame.image.load(image), DIM)
-        self.pos = pygame.Rect(pos[0], pos[1], DIM[0], DIM[1])
+        self.image = pygame.transform.scale(pygame.image.load(image), (300, 200))
+        self.pos = pygame.Rect(pos[0], pos[1], 300, 200)
         self.name_id = obj_name
+        self.correct = False
