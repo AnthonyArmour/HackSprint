@@ -1,5 +1,6 @@
 from models.objects import tech_obj, person_obj, question
 import os
+import random
 
 # person_obj images
 derek_images = []
@@ -82,3 +83,4 @@ questions_list.append(question(derekQ_img, (150, 100), persons_list[0].name))
 questions_list.append(question(toriQ_img, (150, 100), persons_list[1].name))
 questions_list.append(question(googleQ_img, (150, 100), tech_obj_list[0].name))
 questions_list.append(question(intranetQ_img, (150, 100), tech_obj_list[1].name))
+random.shuffle(questions_list)
