@@ -17,6 +17,7 @@ START_1 = pygame.image.load(os.path.join('Assets/images/gameboard', 'welcome_1.P
 START_2 = pygame.image.load(os.path.join('Assets/images/gameboard', 'welcome_2.PNG'))
 START_3 = pygame.image.load(os.path.join('Assets/images/gameboard', 'welcome_3.PNG'))
 INSTRUCTION_IMG = pygame.image.load(os.path.join('Assets/images/gameboard', 'instruction_img.png'))
+GAME_OVER = pygame.image.load(os.path.join('Assets/images/gameboard', 'closescreen.PNG'))
 
 # Misc
 START_BUTTON = pygame.Rect(475, 600, 300, 100)
@@ -45,8 +46,8 @@ def draw_window(screen, obj_list):
         WIN.blit(obj_list[0].active, (75, 400))
         WIN.blit(obj_list[1].active, (450, 400))
         WIN.blit(obj_list[2].active, (825, 400))
-    # elif screen == "game_over":
-    #     WIN.blit(GAME_OVER, (0, 0))
+    elif screen == "game_over":
+        WIN.blit(GAME_OVER, (0, 0))
     pygame.display.update()
 
 
@@ -72,7 +73,8 @@ def blits():
             temp_person.pop(i)
             rand = random.sample(temp_person, 2)
             [new_list.append(i) for i in rand]
-            break
+            return random.sample(new_list, 3)
+
 
     for i, tech in enumerate(temp_tech):
         if tech.name == active.name_id:
@@ -80,9 +82,7 @@ def blits():
             temp_tech.pop(i)
             rand = random.sample(temp_tech, 2)
             [new_list.append(i) for i in rand]
-            break
-
-    return random.sample(new_list, 3)
+            return random.sample(new_list, 3)
 
 
 # Sets a new active question
@@ -123,6 +123,8 @@ def reset_colors(obj_list):
 # obj_list: list of active objects
 def clicked(event, screen, obj_list):
     """Determines whats clicked and decides actions"""
+    if screen == "game_over":
+        pygame.quit()
     if screen == "start":
         if START_BUTTON.collidepoint(event.pos):
             return "start_2", None
@@ -135,9 +137,8 @@ def clicked(event, screen, obj_list):
         set_pos(obj_list)
         return "background", obj_list
     elif screen == "background":
-        click_handler(event, get_active_question(), obj_list)
         if get_active_question().correct == True:
-            if set_active() == None:
+            if set_active() == False:
                 return "game_over", None
             obj_list = blits()
             set_pos(obj_list)
@@ -179,8 +180,6 @@ def main():
                 run = False
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
-                    if screen == "game_over":
-                        pygame.quit()
                     screen, obj_list = clicked(event, screen, obj_list)
 
             draw_window(screen, obj_list)
