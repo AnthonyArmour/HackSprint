@@ -28,6 +28,8 @@ textRect.center = (600, 750)
 
 # Misc
 START_BUTTON = pygame.Rect(475, 600, 300, 100)
+TRY_AGAIN = pygame.Rect(235, 625, 250, 75)
+QUIT = pygame.Rect(725, 625, 250, 75)
 CORRECT_IMG = pygame.transform.scale(
     pygame.image.load(os.path.join('Assets/images/textbox_objs', 'text_correct.PNG')),
     (250, 125))
@@ -138,8 +140,6 @@ def reset_colors(obj_list):
 # obj_list: list of active objects
 def clicked(event, screen, obj_list, tries, total_correct):
     """Determines whats clicked and decides actions"""
-    if screen == "game_over":
-        pygame.quit()
     if screen == "start":
         if START_BUTTON.collidepoint(event.pos):
             return "start_2", None, tries, total_correct
@@ -156,7 +156,7 @@ def clicked(event, screen, obj_list, tries, total_correct):
             if tries == 1:
                 total_correct += 1
             if set_active() == False:
-                return "game_over", None, tries, total_correct
+                return "game_over", obj_list, tries, total_correct
             obj_list = blits()
             set_pos(obj_list)
             reset_colors(obj_list)
@@ -164,8 +164,22 @@ def clicked(event, screen, obj_list, tries, total_correct):
         else:
             tries += 1
             click_handler(event, get_active_question(), obj_list)
+    elif screen == "game_over":
+        if TRY_AGAIN.collidepoint(event.pos):
+            questions_list[0].active = True
+            reset_colors(obj_list)
+            reset_correct()
+            return "start", None, 0, 0
+        if QUIT.collidepoint(event.pos):
+            pygame.quit()
 
     return screen, obj_list, tries, total_correct
+
+
+def reset_correct():
+    """reset correct attr for questions list"""
+    for x in range(len(questions_list)):
+        questions_list[x].correct = False
 
 
 # Handles input - determines if correct or incorrect
