@@ -34,4 +34,5 @@ class question():
         self.image = pygame.transform.scale(pygame.image.load(image), (550, 250))
         self.pos = pygame.Rect(pos[0], pos[1], 550, 250)
         self.name_id = obj_name
+        self.active = False
         self.correct = False
