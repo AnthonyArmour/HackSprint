@@ -92,7 +92,6 @@ def blits():
             [new_list.append(i) for i in rand]
             return random.sample(new_list, 3)
 
-
     for i, tech in enumerate(temp_tech):
         if tech.name == active.name_id:
             new_list.append(tech)
@@ -176,6 +175,7 @@ def clicked(event, screen, obj_list, tries, total_correct):
     return screen, obj_list, tries, total_correct
 
 
+# Resets all question correct attributes to False
 def reset_correct():
     """reset correct attr for questions list"""
     for x in range(len(questions_list)):
