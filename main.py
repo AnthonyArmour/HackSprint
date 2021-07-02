@@ -1,5 +1,5 @@
 import pygame
-from models.Logit import logit
+#from models.Logit import logit
 import random
 from models import persons_list, tech_obj_list, questions_list
 import os
@@ -10,7 +10,6 @@ WIDTHB, HEIGHTB = 1200, 800
 WIN = pygame.display.set_mode((WIDTHB, HEIGHTB))
 pygame.display.set_caption('Lost lil\' holbie')
 FPS = 60
-
 
 # Backgrounds
 BACKGROUND_IMG = pygame.image.load(os.path.join('Assets/images/gameboard', 'gameboard.PNG'))
@@ -24,6 +23,9 @@ START_BUTTON = pygame.Rect(475, 600, 300, 100)
 questions_list[0].active = True
 
 
+# Draws the game window
+# screen: determine background
+# obj_list: objects to draw
 def draw_window(screen, obj_list):
     """Draws game window"""
     if screen == "start":
@@ -37,13 +39,18 @@ def draw_window(screen, obj_list):
     elif screen == "background":
         question = get_active_question()
         WIN.blit(BACKGROUND_IMG, (0, 0))
+        # if question.correct:
+        #     WIN.blit(CORRECT_IMG, (100, 700))
         WIN.blit(question.image, (75, 75))
         WIN.blit(obj_list[0].active, (75, 400))
         WIN.blit(obj_list[1].active, (450, 400))
         WIN.blit(obj_list[2].active, (825, 400))
+    # elif screen == "game_over":
+    #     WIN.blit(GAME_OVER, (0, 0))
     pygame.display.update()
 
 
+# Determines currently active question
 def get_active_question():
     """Gets active question"""
     for question in questions_list:
@@ -51,34 +58,35 @@ def get_active_question():
             return question
 
 
+# Determines which objects to display
 def blits():
     """Finds obj's to blit"""
     new_list = []
     active = get_active_question()
-    temp_person_list = persons_list.copy()
+    temp_person = persons_list.copy()
     temp_tech = tech_obj_list.copy()
 
-    for i, person in enumerate(temp_person_list):
+    for i, person in enumerate(temp_person):
         if person.name == active.name_id:
-            logit('correct is ' + str(active.name_id) + ' iteration: ' + str(i))
             new_list.append(person)
-            temp_person_list.pop(i)
-            new_list.append(random.choice(temp_person_list))
-            new_list.append(random.choice(temp_person_list))
+            temp_person.pop(i)
+            rand = random.sample(temp_person, 2)
+            [new_list.append(i) for i in rand]
             break
 
     for i, tech in enumerate(temp_tech):
         if tech.name == active.name_id:
-            logit('correct is ' + str(active.name_id))
             new_list.append(tech)
             temp_tech.pop(i)
-            new_list.append(random.choice(temp_tech))
-            new_list.append(random.choice(temp_tech))
+            rand = random.sample(temp_tech, 2)
+            [new_list.append(i) for i in rand]
             break
 
     return random.sample(new_list, 3)
 
 
+# Sets a new active question
+# Return: True if new active question set, otherwise False
 def set_active():
     """Sets active question"""
     for i in range(len(questions_list)):
@@ -86,9 +94,13 @@ def set_active():
             questions_list[i].active = False
             if i + 1 < len(questions_list):
                 questions_list[i + 1].active = True
-            break
+                return True
+          
+    return False
 
 
+# Sets positions of displayed objects
+# obj_list: list of objects to display
 def set_pos(obj_list):
     """Sets position of rects"""
     start = 75
@@ -98,11 +110,17 @@ def set_pos(obj_list):
         start += 375
 
 
+# Resets background colors of objects
+# obj_list: list of objects to reset
 def reset_colors(obj_list):
     for obj in obj_list:
         obj.active = obj.image_1
 
 
+# Reacts to clicks, based on currently displayed prompts/questions
+# event: click
+# screen: background
+# obj_list: list of active objects
 def clicked(event, screen, obj_list):
     """Determines whats clicked and decides actions"""
     if screen == "start":
@@ -114,15 +132,14 @@ def clicked(event, screen, obj_list):
         return "instruction", None
     elif screen == "instruction":
         obj_list = blits()
-        # obj_list, question, next_question = blit_objs()
         set_pos(obj_list)
         return "background", obj_list
     elif screen == "background":
+        click_handler(event, get_active_question(), obj_list)
         if get_active_question().correct == True:
-            set_active()
+            if set_active() == None:
+                return "game_over", None
             obj_list = blits()
-            # for i in range(len(questions_list)):
-            #     logit(str(questions_list[i].name_id) + ' ' + str(questions_list[i].active))
             set_pos(obj_list)
             reset_colors(obj_list)
             return "background", obj_list
@@ -132,6 +149,10 @@ def clicked(event, screen, obj_list):
     return screen, obj_list
 
 
+# Handles input - determines if correct or incorrect
+# event: click
+# question: question object
+# obj_list: list of active objects
 def click_handler(event, question, obj_list):
     """Determines if correct option clicked or not"""
     for obj in obj_list:
@@ -143,15 +164,13 @@ def click_handler(event, question, obj_list):
                 obj.active = obj.image_2
 
 
+# Game loop
 def main():
     """Contains game loop"""
     run = True
     clock = pygame.time.Clock()
     screen = "start"
     obj_list = None
-
-    for i in range(len(questions_list)):
-        logit(str(questions_list[i].name_id) + ' ' + str(questions_list[i].active))
 
     while run:
         clock.tick(FPS)
@@ -160,6 +179,8 @@ def main():
                 run = False
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
+                    if screen == "game_over":
+                        pygame.quit()
                     screen, obj_list = clicked(event, screen, obj_list)
 
             draw_window(screen, obj_list)
