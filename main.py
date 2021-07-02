@@ -1,8 +1,7 @@
 import pygame
-from models.Logit import logit
+#from models.Logit import logit
 import random
 from models import persons_list, tech_obj_list, questions_list
-#from models import tech_obj_list, persons_list, questions_list
 import os
 """Lost Little Holbie pygame script"""
 
@@ -20,7 +19,7 @@ BACKGROUND_IMG = pygame.image.load(os.path.join('Assets/images/gameboard', 'game
 START_1 = pygame.image.load(os.path.join('Assets/images/gameboard', 'welcome_1.PNG'))
 START_2 = pygame.image.load(os.path.join('Assets/images/gameboard', 'welcome_2.PNG'))
 START_3 = pygame.image.load(os.path.join('Assets/images/gameboard', 'welcome_3.PNG'))
-INSTRUCTION_IMG = pygame.image.load(os.path.join('Assets/images/gameboard', 'welcome_3.PNG'))
+INSTRUCTION_IMG = pygame.image.load(os.path.join('Assets/images/gameboard', 'instruction_img.png'))
 
 # instruction = pygame.image.load(os.path.join('Assets/images/textbox_objs', 'text_instruct.PNG'))
 
@@ -43,23 +42,26 @@ def draw_window(screen, obj_list, question):
     elif screen == "start_3":
         WIN.blit(START_3, (0, 0))
     elif screen == "instruction":
-        WIN.blit(START_1, (0, 0))
+        WIN.blit(INSTRUCTION_IMG, (0, 0))
     elif screen == "background":
         WIN.blit(BACKGROUND_IMG, (0, 0))
         WIN.blit(question.image, (75, 75))
-        WIN.blit(obj_list[0].image_1, (200, 500))
-        WIN.blit(obj_list[1].image_1, (500, 500))
-        WIN.blit(obj_list[2].image_1, (800, 500))
+        WIN.blit(obj_list[0].active, (75, 400))
+        WIN.blit(obj_list[1].active, (450, 400))
+        WIN.blit(obj_list[2].active, (825, 400))
     pygame.display.update()
+
 
 def blit_objs():
     temp_persons = persons_list.copy()
     temp_tech_objs = tech_obj_list.copy()
     for x, question in enumerate(questions_list):
         if question.active == True:
+            if (x + 1) < len(questions_list):
+                next_question = questions_list[x + 1]
+
             for x, person in enumerate(temp_persons):
                 if question.name_id == person.name:
-                    logit("should be derek->  " + str(person.name))
                     people = []
                     people.append(person)
                     temp_persons.pop(x)
@@ -69,7 +71,8 @@ def blit_objs():
                             people.append(obj)
                         if len(people) == 3:
                             break
-                    return random.sample(people, 3), question
+                    return random.sample(people, 3), question, next_question
+
             for x, tech_obj in enumerate(temp_tech_objs):
                 if question.name_id == tech_obj.name:
                     tech_objs = []
@@ -81,7 +84,21 @@ def blit_objs():
                             tech_objs.append(obj)
                         if len(tech_objs) == 3:
                             break
-                    return random.sample(tech_objs, 3), question
+                    return random.sample(tech_objs, 3), question, next_question
+
+
+def set_pos(obj_list):
+    """Sets position of rects"""
+    start = 75
+    for obj in obj_list:
+        obj.pos.x = start
+        obj.pos.y = 400
+        start += 375
+
+
+def reset_colors(obj_list):
+    for obj in obj_list:
+        obj.active = obj.image_1
 
 
 def clicked(event, screen, obj_list, question):
@@ -94,13 +111,32 @@ def clicked(event, screen, obj_list, question):
     elif screen == "start_3":
         return "instruction", None, None
     elif screen == "instruction":
-        obj_list, question = blit_objs()
+        obj_list, question, next_question = blit_objs()
+        set_pos(obj_list)
         return "background", obj_list, question
     elif screen == "background":
         if question.correct == True:
-            obj_list, question = blit_objs()
-            return "background", obj_list, question
+            obj_list, question, next_question = blit_objs()
+            set_pos(obj_list)
+            question.active = False
+            next_question.active = True
+            reset_colors(obj_list)
+            return "background", obj_list, next_question
+        else:
+            click_handler(event, question, obj_list)
+
     return screen, obj_list, question
+
+
+def click_handler(event, question, obj_list):
+    """Determines if correct option clicked or not"""
+    for obj in obj_list:
+        if obj.pos.collidepoint(event.pos):
+            if question.name_id == obj.name:
+                obj.active = obj.image_3
+                question.correct = True
+            else:
+                obj.active = obj.image_2
 
 
 def main():

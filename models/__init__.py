@@ -7,7 +7,7 @@ derek_images = []
 tori_images = []
 libby_images = []
 stan_images = []
-kristen_images = []
+stutor_images = []
 
 derek_images.append(os.path.join("Assets/images/person_objs", "derek_1.PNG"))
 derek_images.append(os.path.join("Assets/images/person_objs", "derek_2.PNG"))
@@ -25,9 +25,9 @@ stan_images.append(os.path.join("Assets/images/person_objs", "stan_1.PNG"))
 stan_images.append(os.path.join("Assets/images/person_objs", "stan_2.PNG"))
 stan_images.append(os.path.join("Assets/images/person_objs", "stan_3.PNG"))
 
-kristen_images.append(os.path.join("Assets/images/person_objs", "kristen_1.PNG"))
-kristen_images.append(os.path.join("Assets/images/person_objs", "kristen_2.PNG"))
-kristen_images.append(os.path.join("Assets/images/person_objs", "kristen_3.PNG"))
+stutor_images.append(os.path.join("Assets/images/person_objs", "stutor_1.PNG"))
+stutor_images.append(os.path.join("Assets/images/person_objs", "stutor_2.PNG"))
+stutor_images.append(os.path.join("Assets/images/person_objs", "stutor_3.PNG"))
 
 
 """tech_obj images"""
@@ -62,10 +62,8 @@ github_images.append(os.path.join("Assets/images/tech_objs", "github_3.PNG"))
 
 derekQ_img = os.path.join("Assets/images/textbox_objs", "text_derek.PNG")
 toriQ_img = os.path.join("Assets/images/textbox_objs", "text_tori.PNG")
-# libbyQ_img = [os.path.join("Assets/images/"]
 googleQ_img = os.path.join("Assets/images/textbox_objs", "text_google.PNG")
 intranetQ_img = os.path.join("Assets/images/textbox_objs", "text_intranet.PNG")
-# githubQ_img = os.path.join("Assets/images/"
 
 
 """init persons"""
@@ -77,7 +75,7 @@ persons_list.append(person_obj(derek_images, (200, 600), "Derek"))
 persons_list.append(person_obj(tori_images, (600, 600), "Tori"))
 persons_list.append(person_obj(libby_images, (900, 600), "Libby"))
 persons_list.append(person_obj(stan_images, (600, 600), "Stan"))
-persons_list.append(person_obj(kristen_images, (900, 600), "Kristen"))
+persons_list.append(person_obj(stutor_images, (900, 600), "stutor"))
 
 
 
@@ -101,4 +99,3 @@ questions_list.append(question(derekQ_img, (150, 100), persons_list[0].name))
 questions_list.append(question(toriQ_img, (150, 100), persons_list[1].name))
 questions_list.append(question(googleQ_img, (150, 100), tech_obj_list[0].name))
 questions_list.append(question(intranetQ_img, (150, 100), tech_obj_list[1].name))
-# questions_list.append(question(derekQ_img, (150, 100), persons_list[0].name))
