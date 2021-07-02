@@ -149,6 +149,7 @@ def clicked(event, screen, obj_list, tries, total_correct):
         return "instruction", None, tries, total_correct
     elif screen == "instruction":
         obj_list = blits()
+        reset_colors(obj_list)
         set_pos(obj_list)
         return "background", obj_list, tries, total_correct
     elif screen == "background":
@@ -167,7 +168,6 @@ def clicked(event, screen, obj_list, tries, total_correct):
     elif screen == "game_over":
         if TRY_AGAIN.collidepoint(event.pos):
             questions_list[0].active = True
-            reset_colors(obj_list)
             reset_correct()
             return "start", None, 0, 0
         if QUIT.collidepoint(event.pos):
