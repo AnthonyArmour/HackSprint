@@ -21,6 +21,7 @@ GAME_OVER = pygame.image.load(os.path.join('Assets/images/gameboard', 'closescre
 
 # Fonts/text
 FONT = pygame.font.SysFont('american typewriter', 48)
+SCOREFONT = pygame.font.SysFont('american typewriter', 64)
 text = FONT.render('Click anywhere to continue', True, (0,0,0))
 textRect = text.get_rect()
 textRect.center = (600, 750)
@@ -58,9 +59,9 @@ def draw_window(screen, obj_list, total_correct):
         WIN.blit(obj_list[2].active, (825, 400))
     elif screen == "game_over":
         WIN.blit(GAME_OVER, (0, 0))
-        score = FONT.render('You Scored: {} / 10'.format(total_correct), True, (0,0,0))
+        score = SCOREFONT.render('You scored: {} / 10'.format(total_correct), True, (255,255,255))
         scoreRect = score.get_rect()
-        scoreRect.center = (600, 750)
+        scoreRect.center = (600, 400)
         WIN.blit(score, scoreRect)
     pygame.display.update()
 
@@ -141,30 +142,30 @@ def clicked(event, screen, obj_list, tries, total_correct):
         pygame.quit()
     if screen == "start":
         if START_BUTTON.collidepoint(event.pos):
-            return "start_2", None, total_correct
+            return "start_2", None, tries, total_correct
     elif screen == "start_2":
-        return "start_3", None, total_correct
+        return "start_3", None, tries, total_correct
     elif screen == "start_3":
-        return "instruction", None, total_correct
+        return "instruction", None, tries, total_correct
     elif screen == "instruction":
         obj_list = blits()
         set_pos(obj_list)
-        return "background", obj_list, total_correct
+        return "background", obj_list, tries, total_correct
     elif screen == "background":
         if get_active_question().correct == True:
             if tries == 1:
                 total_correct += 1
             if set_active() == False:
-                return "game_over", None, total_correct
+                return "game_over", None, tries, total_correct
             obj_list = blits()
             set_pos(obj_list)
             reset_colors(obj_list)
-            return "background", obj_list, total_correct
+            return "background", obj_list, 0, total_correct
         else:
             tries += 1
             click_handler(event, get_active_question(), obj_list)
 
-    return screen, obj_list, total_correct
+    return screen, obj_list, tries, total_correct
 
 
 # Handles input - determines if correct or incorrect
@@ -199,7 +200,7 @@ def main():
                 run = False
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
-                    screen, obj_list, total_correct = clicked(event, screen, obj_list, tries, total_correct)
+                    screen, obj_list, tries, total_correct = clicked(event, screen, obj_list, tries, total_correct)
 
             draw_window(screen, obj_list, total_correct)
 
