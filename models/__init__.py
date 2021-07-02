@@ -28,6 +28,11 @@ stutor_images.append(os.path.join("Assets/images/person_objs", "stutor_1.PNG"))
 stutor_images.append(os.path.join("Assets/images/person_objs", "stutor_2.PNG"))
 stutor_images.append(os.path.join("Assets/images/person_objs", "stutor_3.PNG"))
 
+julien_images = []
+julien_images.append(os.path.join("Assets/images/person_objs", "julien_1.PNG"))
+julien_images.append(os.path.join("Assets/images/person_objs", "julien_2.PNG"))
+julien_images.append(os.path.join("Assets/images/person_objs", "julien_3.PNG"))
+
 # tech_obj images
 google_images = []
 google_images.append(os.path.join("Assets/images/tech_objs", "google_1.PNG"))
@@ -67,7 +72,7 @@ persons_list.append(person_obj(tori_images, (600, 600), "Tori"))
 persons_list.append(person_obj(libby_images, (900, 600), "Libby"))
 persons_list.append(person_obj(stan_images, (600, 600), "Stan"))
 persons_list.append(person_obj(stutor_images, (900, 600), "stutor"))
-
+persons_list.append(person_obj(julien_images, (900, 600), "Julien"))
 
 #init tech_objs (self, image, pos, name):
 tech_obj_list = []
