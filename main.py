@@ -1,9 +1,9 @@
 import pygame
-#from models.Logit import logit
 import random
 from models import persons_list, tech_obj_list, questions_list
 import os
 """Lost Little Holbie pygame script"""
+pygame.init()
 
 # Window variables
 WIDTHB, HEIGHTB = 1200, 800
@@ -19,15 +19,24 @@ START_3 = pygame.image.load(os.path.join('Assets/images/gameboard', 'welcome_3.P
 INSTRUCTION_IMG = pygame.image.load(os.path.join('Assets/images/gameboard', 'instruction_img.png'))
 GAME_OVER = pygame.image.load(os.path.join('Assets/images/gameboard', 'closescreen.PNG'))
 
+# Fonts/text
+FONT = pygame.font.SysFont('american typewriter', 48)
+text = FONT.render('Click anywhere to continue', True, (0,0,0))
+textRect = text.get_rect()
+textRect.center = (600, 750)
+
 # Misc
 START_BUTTON = pygame.Rect(475, 600, 300, 100)
+CORRECT_IMG = pygame.transform.scale(
+    pygame.image.load(os.path.join('Assets/images/textbox_objs', 'text_correct.PNG')),
+    (250, 125))
 questions_list[0].active = True
 
 
 # Draws the game window
 # screen: determine background
 # obj_list: objects to draw
-def draw_window(screen, obj_list):
+def draw_window(screen, obj_list, total_correct):
     """Draws game window"""
     if screen == "start":
         WIN.blit(START_1, (0, 0))
@@ -40,14 +49,19 @@ def draw_window(screen, obj_list):
     elif screen == "background":
         question = get_active_question()
         WIN.blit(BACKGROUND_IMG, (0, 0))
-        # if question.correct:
-        #     WIN.blit(CORRECT_IMG, (100, 700))
+        if question.correct:
+            WIN.blit(CORRECT_IMG, (775, 150))
+            WIN.blit(text, textRect)
         WIN.blit(question.image, (75, 75))
         WIN.blit(obj_list[0].active, (75, 400))
         WIN.blit(obj_list[1].active, (450, 400))
         WIN.blit(obj_list[2].active, (825, 400))
     elif screen == "game_over":
         WIN.blit(GAME_OVER, (0, 0))
+        score = FONT.render('You Scored: {} / 10'.format(total_correct), True, (0,0,0))
+        scoreRect = score.get_rect()
+        scoreRect.center = (600, 750)
+        WIN.blit(score, scoreRect)
     pygame.display.update()
 
 
@@ -121,33 +135,36 @@ def reset_colors(obj_list):
 # event: click
 # screen: background
 # obj_list: list of active objects
-def clicked(event, screen, obj_list):
+def clicked(event, screen, obj_list, tries, total_correct):
     """Determines whats clicked and decides actions"""
     if screen == "game_over":
         pygame.quit()
     if screen == "start":
         if START_BUTTON.collidepoint(event.pos):
-            return "start_2", None
+            return "start_2", None, total_correct
     elif screen == "start_2":
-        return "start_3", None
+        return "start_3", None, total_correct
     elif screen == "start_3":
-        return "instruction", None
+        return "instruction", None, total_correct
     elif screen == "instruction":
         obj_list = blits()
         set_pos(obj_list)
-        return "background", obj_list
+        return "background", obj_list, total_correct
     elif screen == "background":
         if get_active_question().correct == True:
+            if tries == 1:
+                total_correct += 1
             if set_active() == False:
-                return "game_over", None
+                return "game_over", None, total_correct
             obj_list = blits()
             set_pos(obj_list)
             reset_colors(obj_list)
-            return "background", obj_list
+            return "background", obj_list, total_correct
         else:
+            tries += 1
             click_handler(event, get_active_question(), obj_list)
 
-    return screen, obj_list
+    return screen, obj_list, total_correct
 
 
 # Handles input - determines if correct or incorrect
@@ -172,6 +189,8 @@ def main():
     clock = pygame.time.Clock()
     screen = "start"
     obj_list = None
+    tries = 0
+    total_correct = 0
 
     while run:
         clock.tick(FPS)
@@ -180,9 +199,9 @@ def main():
                 run = False
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
-                    screen, obj_list = clicked(event, screen, obj_list)
+                    screen, obj_list, total_correct = clicked(event, screen, obj_list, tries, total_correct)
 
-            draw_window(screen, obj_list)
+            draw_window(screen, obj_list, total_correct)
 
     pygame.quit()
 
