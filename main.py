@@ -26,6 +26,10 @@ text = FONT.render('Click anywhere to continue', True, (0,0,0))
 textRect = text.get_rect()
 textRect.center = (600, 750)
 
+# Sounds
+DING = pygame.mixer.Sound(os.path.join("Assets/sounds", "ding.mp3"))
+BONG = pygame.mixer.Sound(os.path.join("Assets/sounds", "bong.mp3"))
+
 # Misc
 START_BUTTON = pygame.Rect(475, 600, 300, 100)
 TRY_AGAIN = pygame.Rect(235, 625, 250, 75)
@@ -193,8 +197,13 @@ def click_handler(event, question, obj_list):
             if question.name_id == obj.name:
                 obj.active = obj.image_3
                 question.correct = True
+                DING.set_volume(0.1)
+                DING.play()
             else:
                 obj.active = obj.image_2
+                BONG.set_volume(0.1)
+                BONG.play()
+
 
 
 # Game loop
