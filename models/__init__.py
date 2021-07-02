@@ -64,6 +64,12 @@ derekQ_img = os.path.join("Assets/images/textbox_objs", "text_derek.PNG")
 toriQ_img = os.path.join("Assets/images/textbox_objs", "text_tori.PNG")
 googleQ_img = os.path.join("Assets/images/textbox_objs", "text_google.PNG")
 intranetQ_img = os.path.join("Assets/images/textbox_objs", "text_intranet.PNG")
+stanQ_img = os.path.join("Assets/images/textbox_objs", "text_stan.PNG")
+julienQ_img = os.path.join("Assets/images/textbox_objs", "text_julien.PNG")
+githubQ_img = os.path.join("Assets/images/textbox_objs", "text_github.PNG")
+stutorQ_img = os.path.join("Assets/images/textbox_objs", "text_stutor.PNG")
+virtualboxQ_img = os.path.join("Assets/images/textbox_objs", "text_virtualbox.PNG")
+vscodeQ_img = os.path.join("Assets/images/textbox_objs", "text_vscode.PNG")
 
 #init persons(self, image, pos, name):
 persons_list = []
@@ -86,6 +92,13 @@ tech_obj_list.append(tech_obj(github_images, (900, 600), "Github"))
 questions_list = []
 questions_list.append(question(derekQ_img, (150, 100), persons_list[0].name))
 questions_list.append(question(toriQ_img, (150, 100), persons_list[1].name))
+questions_list.append(question(stanQ_img, (150, 100), persons_list[3].name))
+questions_list.append(question(stutorQ_img, (150, 100), persons_list[4].name))
+questions_list.append(question(julienQ_img, (150, 100), persons_list[5].name))
 questions_list.append(question(googleQ_img, (150, 100), tech_obj_list[0].name))
 questions_list.append(question(intranetQ_img, (150, 100), tech_obj_list[1].name))
+questions_list.append(question(githubQ_img, (150, 100), tech_obj_list[4].name))
+questions_list.append(question(virtualboxQ_img, (150, 100), tech_obj_list[3].name))
+questions_list.append(question(vscodeQ_img, (150, 100), tech_obj_list[2].name))
+
 random.shuffle(questions_list)

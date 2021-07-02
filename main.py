@@ -21,7 +21,7 @@ GAME_OVER = pygame.image.load(os.path.join('Assets/images/gameboard', 'closescre
 
 # Fonts/text
 FONT = pygame.font.SysFont('american typewriter', 48)
-SCOREFONT = pygame.font.SysFont('american typewriter', 64)
+SCOREFONT = pygame.font.SysFont('american typewriter', 120)
 text = FONT.render('Click anywhere to continue', True, (0,0,0))
 textRect = text.get_rect()
 textRect.center = (600, 750)
@@ -59,7 +59,7 @@ def draw_window(screen, obj_list, total_correct):
         WIN.blit(obj_list[2].active, (825, 400))
     elif screen == "game_over":
         WIN.blit(GAME_OVER, (0, 0))
-        score = SCOREFONT.render('You scored: {} / 10'.format(total_correct), True, (255,255,255))
+        score = SCOREFONT.render('{} / 10'.format(total_correct), True, (255,255,255))
         scoreRect = score.get_rect()
         scoreRect.center = (600, 400)
         WIN.blit(score, scoreRect)
